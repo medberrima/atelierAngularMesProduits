@@ -6,9 +6,10 @@ import { Produit } from '../model/produit.model';
 })
 export class ProduitService {
   produits : Produit[] ;
+
   constructor() { 
     this.produits = [
-      {idProduit : 1, nomProduit : "PC ASUS123" , prixProduit : 300.600 , dateCreation : new Date("01/14/2011") },
+      {idProduit : 1, nomProduit : "PC ASUS" , prixProduit : 300.600 , dateCreation : new Date("01/14/2011") },
       {idProduit : 2, nomProduit : "imprimante epson" , prixProduit : 45 , dateCreation : new Date("12/17/2010") },
       {idProduit : 3, nomProduit : "tablette samsung" , prixProduit : 900.123 , dateCreation : new Date("02/20/2020") }, 
     ];
@@ -20,5 +21,30 @@ export class ProduitService {
 
   ajouterProduit(produit : Produit) {
     this.produits.push(produit) ;
+  }
+
+  supprimerProduit( prod: Produit){
+    const index = this.produits.indexOf(prod, 0);
+    if (index > -1) {
+      this.produits.splice(index, 1);
+    }
+  }
+
+  consulterProduit(id:number): Produit{
+    return this.produits.find(p => p.idProduit == id);
+  }
+  updateProduit(p:Produit){
+    // console.log(p);
+    this.supprimerProduit(p);
+    this.ajouterProduit(p);
+    this.trierProduits();
+  }
+
+  trierProduits(){
+    this.produits = this.produits.sort((n1,n2) => {
+      if (n1.idProduit > n2.idProduit) {return 1;}
+      if (n1.idProduit < n2.idProduit) {return -1;}
+      return 0;
+    });
   }
 }

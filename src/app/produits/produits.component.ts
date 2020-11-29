@@ -16,4 +16,10 @@ export class ProduitsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  supprimerProduit(prod : Produit){
+    //  console.log(prod)
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf)
+      this.produitService.supprimerProduit(prod);
+  }
 }
